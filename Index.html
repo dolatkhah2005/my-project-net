@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سامانه پیشرفته پیکربندی و امنیت شبکه | مهندس محمدمهدی دولت‌خواه</title>
+    <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* CSS با ساختار کاملاً فنی و مهندسی شده */
+        :root { 
+            --bg-dark: #020617; 
+            --bg-glass: rgba(15, 23, 42, 0.7); 
+            --primary: #38bdf8; 
+            --secondary: #818cf8; 
+            --text-main: #f8fafc; 
+            --text-muted: #94a3b8; 
+            --border: rgba(255, 255, 255, 0.1); 
+        }
+        
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Vazirmatn', sans-serif; }
+        body { background: var(--bg-dark); color: var(--text-main); line-height: 1.8; }
+        
+        header { padding: 25px 8%; background: rgba(2, 6, 23, 0.9); border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; }
+        
+        section { padding: 100px 8%; max-width: 1200px; margin: 0 auto; }
+        
+        .section-title { font-size: 2.2rem; font-weight: 900; margin-bottom: 40px; border-right: 5px solid var(--primary); padding-right: 20px; }
+        
+        .panel { background: var(--bg-glass); border: 1px solid var(--border); border-radius: 16px; padding: 40px; }
+        
+        /* طراحی گرید مهندسی */
+        .grid-engine { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 25px; }
+        
+        .trick-item { background: rgba(255,255,255,0.03); padding: 25px; border-radius: 10px; border-right: 4px solid var(--primary); transition: 0.3s; }
+        .trick-item:hover { background: rgba(56, 189, 248, 0.05); }
+        
+        .tab-btn { background: #1e293b; color: white; border: none; padding: 12px 30px; border-radius: 8px; margin-bottom: 20px; cursor: pointer; font-weight: bold; }
+        .tab-btn.active { background: var(--primary); color: #000; }
+        .tab-pane { display: none; } .tab-pane.active { display: block; }
+
+        .footer-design { text-align: center; padding: 60px; border-top: 1px solid var(--border); background: #0b1120; }
+    </style>
+</head>
+<body>
+
+<header>
+    <div style="font-size: 1.5rem; font-weight: 900;">Network<span style="color:var(--primary)">Simulator</span></div>
+    <nav>
+        <a href="#history" style="color:white; margin-left:20px; text-decoration:none;">تاریخچه</a>
+        <a href="#lab" style="color:white; margin-left:20px; text-decoration:none;">امنیت</a>
+        <a href="#tutorial" style="color:white; margin-left:20px; text-decoration:none;">پیکربندی</a>
+        <a href="#tricks" style="color:white; text-decoration:none;">ترفندها</a>
+    </nav>
+</header>
+
+<section id="history">
+    <h2 class="section-title">سیر تکامل شبکه‌های بی‌سیم (Wireless History)</h2>
+    <div class="grid-engine">
+        <div class="panel"><h3>۱۹۴۲ - فرکانس پرشی</h3><p>ابداع توسط هدی لامار برای محافظت از سیگنال اژدرها؛ این تکنیک (FHSS) زیربنای امنیت وایرلس مدرن شد.</p></div>
+        <div class="panel"><h3>۱۹۷۱ - ALOHANET</h3><p>اولین شبکه بی‌سیم که با تکنولوژی بسته‌ای (Packet-switched) در هاوایی برای اتصال به دانشگاه راه‌اندازی شد.</p></div>
+        <div class="panel"><h3>۱۹۹۷ - استاندارد 802.11</h3><p>معرفی استاندارد رسمی وای‌فای با سرعت پایین که راه را برای نسل‌های بعدی یعنی Wi-Fi 6 و 7 باز کرد.</p></div>
+    </div>
+</section>
+
+<section id="lab">
+    <h2 class="section-title">تستر استحکام کلیدهای امنیتی (WPA3 Analyzer)</h2>
+    <div class="panel">
+        <input type="text" class="search-box" style="width:100%; padding:20px; background:#020617; border:1px solid var(--border); color:white; border-radius:8px;" id="passInput" placeholder="رمز عبور وای‌فای را جهت آنالیز وارد کنید..." onkeyup="checkPassword()">
+        <div style="height:8px; background:#1e293b; margin-top:15px; border-radius:4px;"><div id="strengthBar" style="height:100%; width:0%; transition:0.3s; background:var(--primary);"></div></div>
+        <p id="strength-text" style="margin-top:10px;">منتظر دریافت ورودی...</p>
+    </div>
+</section>
+
+<section id="tutorial">
+    <h2 class="section-title">مستندات پیکربندی گام‌به‌گام (۶ مرحله فنی)</h2>
+    <button class="tab-btn active" onclick="switchTab('tp')">تنظیمات TP-Link</button>
+    <button class="tab-btn" onclick="switchTab('dl')">تنظیمات D-Link</button>
+    
+    <div id="tp" class="tab-pane active panel">
+        <div class="step-box"><div class="step-num">1</div><p>دسترسی به آدرس <code>192.168.1.1</code> در محیط مرورگر.</p></div>
+        <div class="step-box"><div class="step-num">2</div><p>ورود با اعتبارنامه پیش‌فرض <code>admin</code>.</p></div>
+        <div class="step-box"><div class="step-num">3</div><p>اجرای <code>Quick Setup</code> و تنظیم دستی <code>VPI/VCI</code>.</p></div>
+        <div class="step-box"><div class="step-num">4</div><p>انتخاب پروتکل <code>PPPoE</code> برای برقراری ارتباط با مخابرات.</p></div>
+        <div class="step-box"><div class="step-num">5</div><p>ثبت مشخصات اشتراک اینترنت در فیلد <code>User/Pass</code>.</p></div>
+        <div class="step-box"><div class="step-num">6</div><p>اعمال تنظیمات وایرلس و ریبوت سیستم جهت تکمیل نشست ارتباطی.</p></div>
+    </div>
+    <div id="dl" class="tab-pane panel">
+        <div class="step-box"><div class="step-num">1</div><p>ورود به پنل مدیریت و انتخاب منوی <code>SETUP</code>.</p></div>
+        <div class="step-box"><div class="step-num">2</div><p>هدایت به زیرمنوی <code>Internet Setup</code>.</p></div>
+        <div class="step-box"><div class="step-num">3</div><p>فعال‌سازی وضعیت <code>Manual Internet Connection Setup</code>.</p></div>
+        <div class="step-box"><div class="step-num">4</div><p>پیکربندی پارامترهای لینک WAN روی <code>PPPoE</code>.</p></div>
+        <div class="step-box"><div class="step-num">5</div><p>ایمن‌سازی لایه بی‌سیم و غیرفعال‌سازی قابلیت <code>WPS</code>.</p></div>
+        <div class="step-box"><div class="step-num">6</div><p>ذخیره‌سازی پارامترها و بازنشانی مودم در جدول مسیریابی (Routing Table).</p></div>
+    </div>
+</section>
+
+<section id="tricks">
+    <h2 class="section-title">دیتابیس جامع ۲۵ ترفند مهندسی شبکه</h2>
+    <input type="text" id="search" class="search-box" placeholder="جستجو در بین تمامی ترفندها..." onkeyup="filterTricks()">
+    <div class="grid-engine" id="tricksList">
+        <div class="trick-item"><h4>یافتن Gateway</h4><p>اجرای دستور ipconfig برای یافتن IP دقیق مودم.</p></div>
+        <div class="trick-item"><h4>تغییر رمز ادمین</h4><p>افزایش امنیت پنل مدیریت از تب Maintenance.</p></div>
+        <div class="trick-item"><h4>هارد ریست مودم</h4><p>استفاده از کلید فیزیکی Reset برای بازگشت به تنظیمات کارخانه.</p></div>
+        <div class="trick-item"><h4>مخفی‌سازی SSID</h4><p>جلوگیری از نمایش نام شبکه در لیست وای‌فای‌های اطراف.</p></div>
+        <div class="trick-item"><h4>فیلترینگ MAC</h4><p>ایجاد لیست سفید برای اجازه دسترسی فقط به دستگاه‌های مجاز.</p></div>
+        <div class="trick-item"><h4>پورت فورواردینگ</h4><p>باز کردن پورت برای دوربین مداربسته یا گیمینگ.</p></div>
+        <div class="trick-item"><h4>تنظیمات MTU</h4><p>کاهش MTU برای رفع مشکلات بارگذاری سایت‌های خاص.</p></div>
+        <div class="trick-item"><h4>غیرفعال‌سازی UPnP</h4><p>مسدودسازی پورت‌های خودکار برای امنیت بالاتر.</p></div>
+        <div class="trick-item"><h4>DNS هوشمند</h4><p>ست کردن سرورهای DNS سریع (1.1.1.1) در لایه WAN.</p></div>
+        <div class="trick-item"><h4>تنظیم TX Power</h4><p>مدیریت برد امواج برای جلوگیری از نشت سیگنال به بیرون.</p></div>
+        <div class="trick-item"><h4>ایزولاسیون شبکه</h4><p>بخش AP Isolation برای امنیت در شبکه‌های عمومی.</p></div>
+        <div class="trick-item"><h4>غیرفعال‌سازی ICMP</h4><p>پاسخ ندادن به پینگ جهت مخفی شدن در شبکه.</p></div>
+        <div class="trick-item"><h4>آپدیت فریم‌ور</h4><p>نصب نسخه‌های نرم‌افزاری جدید برای پایداری بیشتر.</p></div>
+        <div class="trick-item"><h4>بررسی لاگ سیستم</h4><p>آنالیز گزارش‌های ورود در بخش System Log.</p></div>
+        <div class="trick-item"><h4>زمان‌بندی وای‌فای</h4><p>خاموشی خودکار وایرلس در ساعات خاص شب.</p></div>
+        <div class="trick-item"><h4>فعال‌سازی WMM</h4><p>اولویت‌دهی به ترافیک صوتی و تصویری در شبکه.</p></div>
+        <div class="trick-item"><h4>رزرو آی‌پی (DHCP)</h4><p>اختصاص آی‌پی ثابت به لپ‌تاپ یا دوربین‌ها.</p></div>
+        <div class="trick-item"><h4>غیرفعال‌سازی WPS</h4><p>بستن کامل حفره‌های امنیتی پین‌کد مودم.</p></div>
+        <div class="trick-item"><h4>انتخاب کانال بهینه</h4><p>ثابت کردن کانال روی 1، 6 یا 11 برای کاهش تداخل.</p></div>
+        <div class="trick-item"><h4>ریبوت نرم‌افزاری</h4><p>راه‌اندازی مجدد مودم از طریق منوی System.</p></div>
+        <div class="trick-item"><h4>بک‌آپ تنظیمات</h4><p>تهیه خروجی از کانفیگ نهایی جهت بازیابی.</p></div>
+        <div class="trick-item"><h4>نام‌گذاری دیوایس‌ها</h4><p>تغییر نام دیوایس‌ها در پنل برای مدیریت بهتر.</p></div>
+        <div class="trick-item"><h4>تنظیمات DMZ</h4><p>هدایت کلیه ترافیک به یک آی‌پی خاص در شبکه داخلی.</p></div>
+        <div class="trick-item"><h4>DDNS</h4><p>دسترسی از راه دور به شبکه با استفاده از دامنه اختصاصی.</p></div>
+        <div class="trick-item"><h4>URL Filtering</h4><p>بلاک کردن وب‌سایت‌های خاص در سطح شبکه داخلی.</p></div>
+    </div>
+</section>
+
+<footer class="footer-design">
+    <h3 style="margin-bottom:15px">پروژه پایانی مهندسی شبکه</h3>
+    <p>دانشجو: <span style="color:var(--primary)">محمدمهدی دولت‌خواه</span> | استاد: <span>مهندس بابک آذرافشار</span></p>
+    <p style="margin-top:10px; font-size: 0.8rem; opacity:0.6;">دانشکده فنی شهید شمسی‌پور - ۱۴۰۵</p>
+</footer>
+
+<script>
+    function switchTab(id) {
+        document.querySelectorAll('.tab-pane').forEach(p => p.classList.remove('active'));
+        document.getElementById(id).classList.add('active');
+        document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.innerText.includes(id=='tp'?'TP':'D')));
+    }
+    function checkPassword() {
+        let p = document.getElementById("passInput").value;
+        let b = document.getElementById("strengthBar");
+        let s = p.length * 10;
+        b.style.width = s + "%";
+        b.style.background = s > 70 ? "#34d399" : "#f87171";
+    }
+    function filterTricks() {
+        let q = document.getElementById("search").value.toLowerCase();
+        document.querySelectorAll(".trick-item").forEach(t => t.style.display = t.innerText.toLowerCase().includes(q) ? "block" : "none");
+    }
+</script>
+</body>
+</html>
